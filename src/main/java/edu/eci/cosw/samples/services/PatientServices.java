@@ -36,10 +36,10 @@ public interface PatientServices {
     public Paciente getPatient(int id, String tipoid) throws ServicesException;
     
     /**
-     * Obj: retorna los pacientes que tengan más registradas más de N consultas.
+     * Obj: retorna los pacientes que tengan registradas más de N consultas.
      * @param n - el valor N a ser usado como parámetro en la consulta
      * @return el listao de pacientes que tengan más registradas más de N consultas.
-     * @throws ServicesException si se presenta un error interno en la consulta.
+     * @throws edu.eci.cosw.samples.services.ServicesException
      */
     public List<Paciente> topPatients(int n) throws ServicesException;
     

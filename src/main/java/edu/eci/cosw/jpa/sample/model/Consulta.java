@@ -60,7 +60,12 @@ public class Consulta  implements java.io.Serializable {
         this.resumen = resumen;
     }
 
+    @Override
+    public String toString() {
+        return "Consulta{" + "idConsultas=" + idConsultas + ", fechaYHora=" + fechaYHora + ", resumen=" + resumen + '}';
+    }
 
+    
 
 
 }

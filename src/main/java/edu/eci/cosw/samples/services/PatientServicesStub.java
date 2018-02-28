@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
  *
  * @author hcadavid
  */
-@Service
+//@Service
 public class PatientServicesStub implements PatientServices{
 
     @Override

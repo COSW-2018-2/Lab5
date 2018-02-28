@@ -19,6 +19,7 @@ package edu.eci.cosw.samples.controllers;
 import edu.eci.cosw.jpa.sample.model.Paciente;
 import edu.eci.cosw.samples.services.PatientServices;
 import edu.eci.cosw.samples.services.ServicesException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,21 +46,42 @@ public class PatientsController {
     
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Paciente> getPaciente(@PathVariable int id) {
+    public ResponseEntity<?> getPaciente(@PathVariable int id) {
         try {
             Paciente p=services.getPatient(id, "cc");
             if (p!=null){
                 return ResponseEntity.ok().body(p);        
             }
             else{
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("There is no patient with te id: "+id,HttpStatus.NOT_FOUND);
             }
             
         } catch (ServicesException ex) {
             Logger.getLogger(PatientsController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);            
-        }         
-        
+        }                
     }
     
+    @RequestMapping(path = "/atLeast10",method = RequestMethod.GET)
+    public ResponseEntity<?> top10Paciente() {
+        try {
+            // Dejo el 10 fijo porque asi lo especifican al igual que devolver lista vacia en vez de error, si es el caso
+            
+            List<Paciente> ps = services.topPatients(10);
+            return ResponseEntity.ok().body(ps); 
+            
+            /* WITH ERROR
+            if (!ps.isEmpty()){
+                return ResponseEntity.ok().body(ps);
+            }
+            else{
+                return new ResponseEntity<>("There is no patient with at least 10 consults",HttpStatus.NOT_FOUND);
+            }*/   
+            
+        } catch (ServicesException ex) {
+            Logger.getLogger(PatientsController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);            
+        }        
+    }
+ 
 }

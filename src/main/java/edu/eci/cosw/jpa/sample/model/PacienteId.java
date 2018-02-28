@@ -1,6 +1,7 @@
 package edu.eci.cosw.jpa.sample.model;
 // Generated Mar 9, 2016 7:01:57 AM by Hibernate Tools 4.3.1
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -42,25 +43,41 @@ public class PacienteId  implements java.io.Serializable {
         this.tipoId = tipoId;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.tipoId);
+        return hash;
+    }
 
-   public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof PacienteId) ) return false;
-		 PacienteId castOther = ( PacienteId ) other; 
-         
-		 return (this.getId()==castOther.getId())
- && ( (this.getTipoId()==castOther.getTipoId()) || ( this.getTipoId()!=null && castOther.getTipoId()!=null && this.getTipoId().equals(castOther.getTipoId()) ) );
-   }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PacienteId other = (PacienteId) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.tipoId, other.tipoId)) {
+            return false;
+        }
+        return true;
+    }
    
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + this.getId();
-         result = 37 * result + ( getTipoId() == null ? 0 : this.getTipoId().hashCode() );
-         return result;
-   }   
 
+    @Override
+    public String toString() {
+        return "PacienteId{" + "id=" + id + ", tipoId=" + tipoId + '}';
+    }
+   
 
 }
 
